@@ -216,7 +216,7 @@ def process_command(query: str):
             speak("Please specify a URL to open, e.g., 'open https://www.YouTube.com'.")
 
     elif "play music" in query_lower:
-        music_dir = "C:/Users/PAK/Music"  # Replace with your music directory
+        music_dir = "C:/Users/PK/Music"  # Replace with your music directory
         if os.path.exists(music_dir):
             songs = [f for f in os.listdir(music_dir) if f.endswith(('.mp3', '.wav'))]
             if songs:
