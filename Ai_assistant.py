@@ -19,7 +19,7 @@ except Exception as e:
     sys.exit(1)
 
 # Google Gemini API setup
-GEMINI_API_KEY = "YOUR-API-KEY"  # Your key (ensure it's valid)
+GEMINI_API_KEY = "YOUR-API-KEY"  #replace your Api Key (ensure it's valid)
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 # Fallback knowledge base
