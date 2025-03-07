@@ -64,7 +64,7 @@ You can install the required packages using pip:
     *   Modify the `music_dir` variable in the `process_command` function to point to your music directory.
 
     ```
-    music_dir = "C:/Users/PAK/Music"  # Replace with your music directory
+    music_dir = "C:/Users/PK/Music"  # Replace with your music directory
     ```
 
 ## Usage
