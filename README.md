@@ -72,7 +72,7 @@ You can install the required packages using pip:
 1.  **Run the script:**
 
     ```
-    python your_script_name.py
+    python Ai_assistent.py
     ```
 2.  **Interact with the assistant:**
 
