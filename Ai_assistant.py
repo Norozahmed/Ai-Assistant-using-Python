@@ -19,23 +19,24 @@ except Exception as e:
     sys.exit(1)
 
 # Google Gemini API setup
-GEMINI_API_KEY = "YOUR-API-KEY"  #replace your Api Key (ensure it's valid)
+GEMINI_API_KEY = "REPLACE_YOUR_API_KEY_HERE"  #replace your Api Key (ensure it's valid)
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 # Fallback knowledge base
 FALLBACK_KNOWLEDGE: Dict[str, str] = {
     "python": "Python is a high-level, interpreted programming language known for its readability and versatility. It was created by Guido van Rossum and first released in 1991.",
-    "albert einstein": "Albert Einstein was a German-born physicist who developed the theory of relativity. He’s famous for the equation E equals M C squared and won the Nobel Prize in Physics in 1921.",
-    "sun": "The Sun is a star at the center of our solar system. It’s a nearly perfect sphere of hot plasma, primarily made of hydrogen and helium, and provides Earth with light and heat.",
+    "albert einstein": "Albert Einstein was a German-born physicist who developed the theory of relativity. He's famous for the equation E equals M C squared and won the Nobel Prize in Physics in 1921.",
+    "sun": "The Sun is a star at the center of our solar system. It's a nearly perfect sphere of hot plasma, primarily made of hydrogen and helium, and provides Earth with light and heat.",
     "ai": "Artificial Intelligence, or AI, is the simulation of human intelligence in machines. It includes tasks like learning, problem-solving, and decision-making.",
-    "gravity": "Gravity is a fundamental force that attracts objects toward each other. It keeps planets in orbit around the Sun and is described by Newton’s law of universal gravitation.",
-    "elon musk": "Elon Musk is a billionaire entrepreneur and inventor, known for founding Tesla, SpaceX, and Neuralink. He’s a key figure in technology and space exploration.",
+    "gravity": "Gravity is a fundamental force that attracts objects toward each other. It keeps planets in orbit around the Sun and is described by Newton's law of universal gravitation.",
+    "elon musk": "Elon Musk is a billionaire entrepreneur and inventor, known for founding Tesla, SpaceX, and Neuralink. He's a key figure in technology and space exploration.",
 }
 
 def speak(text: str):
     """Speak the given text."""
     try:
-        engine.say(text)
+        clean_text = text.replace('*', '')  # Remove asterisks
+        engine.say(clean_text)
         engine.runAndWait()
     except Exception as e:
         print(f"Error speaking: {e}")
@@ -73,7 +74,7 @@ def get_gemini_response(query: str) -> str:
         for key, value in FALLBACK_KNOWLEDGE.items():
             if key.lower() in query.lower():
                 return value
-        return f"Sorry, I couldn’t fetch information about {query} right now. Try something else!"
+        return f"Sorry, I couldn't fetch information about {query} right now. Try something else!"
 
 def is_valid_url(url: str) -> bool:
     """Check if the input is a valid URL, preserving case."""
@@ -177,7 +178,7 @@ def download_youtube_video(youtube_url: str, output_path: str = "downloads"):
         if "403" in str(e) or "Forbidden" in str(e):
             speak("YouTube blocked the download due to restrictions or anti-scraping measures. Try logging into YouTube in your browser or using a different link.")
         elif "private" in str(e).lower() or "age-restricted" in str(e).lower():
-            speak("This YouTube video is private or age-restricted and cannot be downloaded. Please ensure it’s public or use a different link.")
+            speak("This YouTube video is private or age-restricted and cannot be downloaded. Please ensure it's public or use a different link.")
         else:
             speak("There was an error downloading the video. It might be due to network issues or an invalid link. Please try again.")
     except Exception as e:
@@ -193,9 +194,9 @@ def process_command(query: str):
     # Commands (case-insensitive for keywords, but preserve URLs)
     query_lower = query.lower()
     if "hello" in query_lower or "hi" in query_lower:
-        speak("Hello! I’m your assistant. How can I help you?")
+        speak("Hello! I'm your assistant. How can I help you?")
     elif "how are you" in query_lower:
-        speak("I’m doing great, thanks! How can I assist you today?")
+        speak("I'm doing great, thanks! How can I assist you today?")
     elif "what can you do" in query_lower:
         speak("I can answer questions, tell the time, open websites, play music, download YouTube videos, and more. Ask me anything!")
 
@@ -234,7 +235,7 @@ def process_command(query: str):
             result = eval(expression)
             speak(f"The result of {expression} is {result}.")
         except Exception:
-            speak("Sorry, I couldn’t perform that calculation. Try '2 plus 3'.")
+            speak("Sorry, I couldn't perform that calculation. Try '2 plus 3'.")
 
     elif "download" in query_lower:
         # Extract YouTube URL, preserving original case
@@ -254,7 +255,7 @@ def process_command(query: str):
         speak(response)
 
 def main():
-    speak("Greetings! I’m your AI assistant, Ask me anything!") 
+    speak("Greetings! I'm your AI assistant, Ask me anything!") 
     print("Type your command or question below (e.g., 'time', 'Python', 'play music', 'open https://www.YouTube.com', 'download https://www.YouTube.com/watch?v=VIDEO_ID', 'exit')")
     while True:
         user_query = get_user_input()
